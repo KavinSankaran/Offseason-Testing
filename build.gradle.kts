@@ -29,6 +29,5 @@ repositories {
 
 dependencies {
     implementation("com.pedropathing:ivy:1.0.0")
-    implementation("com.skeletonarmyftc.marrow:core:1.1.2")
     implementation("dev.nextftc.v2:robot:0.1.0-rc.1")
 }

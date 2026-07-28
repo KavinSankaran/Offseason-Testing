@@ -7,7 +7,7 @@ pluginManagement {
 	}
 }
 
-includeBuild("../NextFTCSuite-Kavin") {
+/*includeBuild("../NextFTCSuite") {
 	dependencySubstitution {
 		substitute(module("dev.nextftc.v2:robot"))
 			.using(project(":robot"))
@@ -24,4 +24,4 @@ includeBuild("../NextFTCSuite-Kavin") {
 		substitute(module("dev.nextftc.v2:linalg"))
 			.using(project(":linalg"))
 	}
-}
+}*/

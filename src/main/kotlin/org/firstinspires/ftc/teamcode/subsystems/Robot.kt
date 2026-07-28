@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems
 
 import dev.nextftc.hardware.RobotController
-import dev.nextftc.hardware.actuators.NextMotor
 import dev.nextftc.robot.Mechanism
 import dev.nextftc.robot.NextRobot
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants

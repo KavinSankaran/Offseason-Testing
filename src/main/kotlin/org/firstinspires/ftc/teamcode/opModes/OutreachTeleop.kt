@@ -4,30 +4,30 @@ import com.pedropathing.ivy.Scheduler
 import com.pedropathing.ivy.Scheduler.schedule
 import com.pedropathing.ivy.commands.Commands.instant
 import com.pedropathing.ivy.groups.Groups.parallel
-import com.pedropathing.ivy.groups.Groups.sequential
+import dev.nextftc.robot.opmode.BulkReadHook
 import dev.nextftc.robot.opmode.NextOpMode
 import dev.nextftc.robot.opmode.NextTeleop
 import dev.nextftc.robot.triggers.CommandGamepad
 import dev.nextftc.robot.triggers.Trigger
-import org.firstinspires.ftc.teamcode.subsystems.Robot
+import org.firstinspires.ftc.teamcode.util.mechanisms.Robot
 
 @NextTeleop("OutreachTeleop")
-class OutreachTeleop(robot: Robot) : NextOpMode(robot){
+class OutreachTeleop(private val robot: Robot) : NextOpMode(robot, BulkReadHook){
     init {
         Trigger.defaultEventLoop.clear()
         Scheduler.reset()
 
-        val gp1 = CommandGamepad(gamepad1)
-        val gp2 = CommandGamepad(gamepad2)
+        val gp1 = CommandGamepad(gamepad = gamepad1)
+        val gp2 = CommandGamepad(gamepad = gamepad2)
 
-        schedule(robot.drivetrain.tank(gp1))
+        schedule(robot.drivetrain.tank(gamepad1))
 
         gp1.leftBumper.whileTrue(robot.drivetrain.strafeLeft)
         gp1.rightBumper.whileTrue(robot.drivetrain.strafeRight)
         gp1.y.whileTrue(robot.drivetrain.forward)
         gp1.a.whileTrue(robot.drivetrain.backward)
 
-        gp1.a.and { gp1.start.getAsBoolean() }.onTrue(
+        gp1.a.and(gp1.start).onTrue(
             parallel(
                 instant(robot.drivetrain::stop),
                 instant(robot.drivetrain.backward::cancel)

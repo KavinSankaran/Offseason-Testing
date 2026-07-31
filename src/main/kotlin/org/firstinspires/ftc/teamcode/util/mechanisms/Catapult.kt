@@ -1,17 +1,14 @@
-package org.firstinspires.ftc.teamcode.subsystems
+package org.firstinspires.ftc.teamcode.util.mechanisms
 
-import com.pedropathing.ivy.commands.Commands.conditional
-import com.pedropathing.ivy.commands.Commands.waitMs
+import com.pedropathing.ivy.commands.Commands.*
 import com.pedropathing.ivy.groups.Groups.sequential
 import dev.nextftc.hardware.actuators.NextMotor
 import dev.nextftc.robot.Mechanism
+import org.firstinspires.ftc.teamcode.util.HardwareUtil.motor
 
 class Catapult : Mechanism {
-    private val right = NextMotor("launcher").apply { zeroPowerBehavior = NextMotor.ZeroPowerBehavior.BRAKE }
-    private val left = NextMotor("launcher2").apply {
-        follow(right, NextMotor.Direction.REVERSE)
-        zeroPowerBehavior = NextMotor.ZeroPowerBehavior.BRAKE
-    }
+    private val right = motor("launcher")
+    private val left = motor("launcher2").apply { follow(right, NextMotor.Direction.REVERSE) }
 
     private var isUp = false
 

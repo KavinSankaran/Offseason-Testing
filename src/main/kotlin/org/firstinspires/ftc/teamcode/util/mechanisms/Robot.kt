@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems
+package org.firstinspires.ftc.teamcode.util.mechanisms
 
 import dev.nextftc.hardware.RobotController
 import dev.nextftc.robot.Mechanism
@@ -14,4 +14,9 @@ class Robot : NextRobot {
 
     override val mechanisms: Set<Mechanism>
         get() = setOf(intake, catapult, drivetrain)
+
+    init {
+        intake.setCount(0)
+        drivetrain.reset()
+    }
 }

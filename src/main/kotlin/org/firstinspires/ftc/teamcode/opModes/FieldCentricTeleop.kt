@@ -11,8 +11,8 @@ import dev.nextftc.robot.triggers.CommandGamepad
 import dev.nextftc.robot.triggers.Trigger
 import org.firstinspires.ftc.teamcode.util.mechanisms.Robot
 
-@NextTeleop("MecanumTeleop")
-class MecanumTeleop(private val robot: Robot) : NextOpMode(robot, BulkReadHook) {
+@NextTeleop("FieldCentricTeleop")
+class FieldCentricTeleop(private val robot: Robot) : NextOpMode(robot, BulkReadHook) {
     init {
         Trigger.defaultEventLoop.clear()
         Scheduler.reset()
@@ -27,7 +27,9 @@ class MecanumTeleop(private val robot: Robot) : NextOpMode(robot, BulkReadHook) 
             )
         )
 
-        schedule(robot.drivetrain.mecanum(gamepad1))
+        schedule(robot.drivetrain.fieldCentric(gamepad1))
+
+        gp1.rightTrigger.isOver(0.5).onTrue(instant(robot.drivetrain::reset))
 
         gp2.rightStickY.isBetween(-0.01..0.01)
             .whileFalse(robot.intake.custom { -gp2.rightStickY.value })

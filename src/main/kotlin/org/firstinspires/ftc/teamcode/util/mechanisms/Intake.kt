@@ -1,17 +1,16 @@
-package org.firstinspires.ftc.teamcode.subsystems
+package org.firstinspires.ftc.teamcode.util.mechanisms
 
 import dev.nextftc.hardware.actuators.NextMotor
 import dev.nextftc.hardware.sensors.NextDigitalSensor
-import dev.nextftc.robot.Mechanism
-import dev.nextftc.robot.Telemetry
+import dev.nextftc.robot.*
+import org.firstinspires.ftc.teamcode.util.HardwareUtil.motor
 
 class Intake : Mechanism {
-    private val intake = NextMotor("Intake").apply { direction = NextMotor.Direction.REVERSE }
+    private val intake = motor("Intake")
     private val beam = NextDigitalSensor("breakBeam", true)
 
-    enum class BeamState { BLOCKED, OPEN }
-    private var state = BeamState.BLOCKED
     private var count = 0
+    private var lastDetected = false
 
     val on = instant { intake.throttle = 1.0 }
     val off = instant { intake.throttle = 0.0 }
@@ -19,22 +18,10 @@ class Intake : Mechanism {
     fun custom(throttle: () -> Double) = infinite { intake.throttle = throttle() }
 
     override fun periodic() {
-        when (state) {
-            BeamState.BLOCKED -> {
-                if (!beam.isTriggered) {
-                    state = BeamState.OPEN
-                }
-            }
+        val detected: Boolean = !beam.isTriggered
+        if (detected && !lastDetected) count++
 
-            BeamState.OPEN -> {
-                if (beam.isTriggered && intake.throttle >= 0.0) {
-                    count++
-                    state = BeamState.BLOCKED
-                } else {
-                    count += 0
-                }
-            }
-        }
+        lastDetected = detected
 
         Telemetry.log(beam.debug())
         Telemetry.log("Artifacts:", count)

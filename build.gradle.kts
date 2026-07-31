@@ -28,6 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.pedropathing:ivy:1.0.0")
-    implementation("dev.nextftc.v2:robot:0.1.0-rc.1")
+    implementation("dev.nextftc.v2:control:0.1.0")
+    implementation("dev.nextftc.v2:hardware:0.1.0")
+    implementation("dev.nextftc.v2:robot:0.1.0")
 }

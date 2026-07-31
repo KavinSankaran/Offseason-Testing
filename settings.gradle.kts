@@ -7,7 +7,7 @@ pluginManagement {
 	}
 }
 
-/*includeBuild("../NextFTCSuite") {
+/*includeBuild("../NextFTCSuite-Test") {
 	dependencySubstitution {
 		substitute(module("dev.nextftc.v2:robot"))
 			.using(project(":robot"))

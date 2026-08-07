@@ -25,9 +25,7 @@ class Drivetrain : Mechanism {
     private val pinpoint = NextPinpoint("pinpoint").apply { resetPosAndIMU() }
 
     fun mecanum(gamepad: Gamepad) = mecanumDrive(lf, rf, lb, rb, gamepad)
-
     fun fieldCentric(gamepad: Gamepad) = mecanumDriveFieldCentric(lf, rf, lb, rb, gamepad, pinpoint.pose.heading::toDouble)
-
     fun tank(gamepad: Gamepad) = tankDrive(lf, rf, lb, rb, gamepad)
 
     val strafeLeft = setDtPowers(-1.0, 1.0, 1.0, -1.0)
